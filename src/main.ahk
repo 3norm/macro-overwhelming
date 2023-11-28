@@ -8,11 +8,6 @@ SetMouseDelay -1
 SetControlDelay -1
 SetKeyDelay -1
 
- ; possible automatic link sender for Discord plebs? Might be bannable on Discord.
- ; Each line of chat is 18 pixels tall, with 0 padding between them.
- ; On my 2560 x 1440 screen, the chat gui starts about 37 pixels below the top of the screen, and the actual lines
- ; begin 3 pixels below that. Chat is 0.3 of your screen width.
-
 
 if not FileExist("conf.ini") {
     sourceFile := FileOpen("resourcdefaultconf.ini", "r")
@@ -24,6 +19,7 @@ if not FileExist("conf.ini") {
 }
 
 CurrentLoadout := IniRead("conf.ini", "Loadouts", "CurrentLoadout")
+notifyOnWin := IniRead("conf.ini", "Biomes", "NotifyOnWin")
 
 BiomesList := Map(
     "Night", IniRead("conf.ini", "Biomes", "Night"),
@@ -102,6 +98,7 @@ Slots := {
 }
 
 GameLink := IniRead("conf.ini", "Application", "GameLink")
+
 /*
     Color for inventory is aaffff
     Color for inventory while depressed is 77b3b3
@@ -110,7 +107,7 @@ GameLink := IniRead("conf.ini", "Application", "GameLink")
     I want to check if the inventory is gone for more than 10 minutes, and if it is, it ends the game because it is broken.
 */
 
-DevMode := IniRead("conf.ini", "Application", "Devmode"),
+devMode := IniRead("conf.ini", "Application", "DevMode"),
 
 WINDOW_TITLE := "Roblox"
 WINDOW_CLASS := "WINDOWSCLIENT"
@@ -126,26 +123,12 @@ telePort := [
 biomeHop := IniRead("conf.ini", "Biomes", "BiomeHop") 
 logWins := IniRead("conf.ini", "Biomes", "LogWins") 
 logLosses := IniRead("conf.ini", "Biomes", "LogLosses") 
+checkChat := IniRead("conf.ini", "Application", "CheckChat") 
 toggle := false
 
 queue := []
 
-/*
-LOOP_NUMBER() 
-{
-    if (CURRENT_BUFF.durationMs > CURRENT_BUFF.coolDownMs) {
-        value := Ceil(CURRENT_BUFF.durationMs / (50 + CURRENT_WEAPON.coolDownMs))
-    } else {
-        value := Ceil(CURRENT_BUFF.coolDownMs / (50 + CURRENT_WEAPON.coolDownMs))
-    }
-    if value > 50 {
-        value := 50
-    }
-    return value
-}
-*/
-
-XButton2:: {
+ScrollLock:: { ; I'll have to make this a button you can choose, since not everyone has this button/key.
     Global toggle
     toggle := !toggle
     if (Toggle) {
@@ -158,8 +141,6 @@ XButton2:: {
 Ins:: {
     ExitApp
 } 
-
-; Sleep 5000 ; Unneeded because now it's better to start instantly.
 
 While (True) {
     DeadTimer := 0
@@ -221,11 +202,23 @@ While (True) {
 
 
 Check_Chat() {
-    MiningNotif := 0
-    ChatLinePixelHeight := 18
+    /* 
+     * Possible automatic link sender for Discord plebs? Might be bannable on Discord.
+     *
+     * Each line of chat is 18 pixels tall, with 0 padding between them, which seems unfortunate, because the MinImageDimension
+     * for the OCR appears to be 40 pixels, however, it works fine to read lines in my experience.
+     * On my 2560 x 1440 screen, the chat gui starts about 37 pixels below the top of the screen, and the actual lines
+     * begin 3 pixels below that. Chat is 0.3 of your screen width.
+     *
+     * I want to have this function call when checkChat is true, instead of BiomeHop, 
+     * since I'll make a seperate Rain check that notifies when she spawns.
+     *
+     */
+    CHAT_LINE_PIXEL_HEIGHT := 18
     ChatStartHeight := 37
+    chatLineAmount := 18 ; The amount of lines in chat.
     static coolDown := false
-    results := Array()
+    results := Array()yHeight
     if WinExist("ahk_class " . WINDOW_CLASS) and toggle and biomeHop and not coolDown {
         ; You have to alt tab just in case the window is frozen.
         if not coolDown {
@@ -239,14 +232,14 @@ Check_Chat() {
         WinActivate
         SafeSend("/", WINDOW_CLASS)
         Delay(500)
-        Loop 18 { ; The amount of lines in chat
-            mathsss := (37+(18*A_Index-18))
-            result := OCR.FromRect(0, mathsss, 776, 18,,)
+        Loop chatLineAmount { ; The amount of lines in chat
+            yHeight := (37+(18*A_Index-18))
+            result := OCR.FromRect(0, yHeight, 776, CHAT_LINE_PIXEL_HEIGHT,,)
             results.InsertAt(A_Index, result.text)
         }
-        if DevMode {
+        if devMode {
             Loop results.Length {
-                    MsgBox mathsss . ", " . results[A_Index]
+                    MsgBox yHeight . ", " . results[A_Index]
             }
         }
         Loop 2 { ; Without this there are random spaces which clutter up the chat, for some reason, and Backspace 4 didn't work to fix it, so I'm using a loop.
@@ -257,7 +250,7 @@ Check_Chat() {
         for name, boole in BiomesList {
             for _, phrase in Biomes.%name%.items {
                 for _, resulters in results {
-                    if DevMode {
+                    if devMode {
                         asdasdasd := results[A_Index]
                         msgBox(phrase . ", " . name . ", " . boole ", " . asdasdasd,)
                     }
@@ -274,6 +267,9 @@ Check_Chat() {
                                 Loop results.Length {
                                     FileAppend("Line " . Integer(A_Index) . ", " . results[A_Index] . "`n", "mo_wins.log")
                                 }
+                            }
+                            if notifyOnWin = True { ; I'll move this to be outside of the Win thing later, since you might want to be notified for Rain but not for Heaven, and you might not want to Biome hop, but still want Rain.
+                                SoundPlay("*48")
                             }
                         } else if (!boole and InStr(StrReplace(StrLower(resulters), A_Space), StrReplace(StrLower(phrase), A_Space)) and coolDown = false and WinExist("ahk_class " . WINDOW_CLASS)) {
                             ; msgBox phrase . ", " . name . ", " . boole, ", " . asdasdasd
@@ -295,8 +291,6 @@ Check_Chat() {
                 }
             }
         }
-    } else if MiningNotif {
-        testVar := 1+1
     }
 }
      ; Now I want to check if results has any text in it equal to a biome I have at 1 first, then biomes I have at 0.

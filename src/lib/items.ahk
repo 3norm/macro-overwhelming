@@ -162,13 +162,15 @@ Funcs := {}
 EquinoxBallista(key, clickPosArray) { ; What the hell am I doing?
     static coolDown := False
     static counter := 0
-    if coolDown = False {
+    if coolDown = False and toggle = true {
         Loop 6 {
-            SafeSend(key, WINDOW_CLASS)
-            SafeClick(Random(clickPosArray[1] + 10, clickPosArray[1] - 10), Random(clickPosArray[2] + 10, clickPosArray[2] - 10), WINDOW_CLASS)
-            SafeSend(key, WINDOW_CLASS)
-            SafeClick(Random(clickPosArray[1] + 10, clickPosArray[1] - 10), Random(clickPosArray[2] + 10, clickPosArray[2] - 10), WINDOW_CLASS)
-            Delay(Items.EquinoxBallista.coolDownMs)
+            if toggle = true {
+                SafeSend(key, WINDOW_CLASS)
+                SafeClick(Random(clickPosArray[1] + 10, clickPosArray[1] - 10), Random(clickPosArray[2] + 10, clickPosArray[2] - 10), WINDOW_CLASS)
+                SafeSend(key, WINDOW_CLASS)
+                SafeClick(Random(clickPosArray[1] + 10, clickPosArray[1] - 10), Random(clickPosArray[2] + 10, clickPosArray[2] - 10), WINDOW_CLASS)
+                Delay(Items.EquinoxBallista.coolDownMs)
+            }
         }
         coolDown := true
         SetTimer CooldownFalse, 30000
@@ -521,6 +523,8 @@ Biomes :=
                 "Forbidden",
                 "Crystal",
                 "Crystai",
+                "Crvstal",
+                "Crvstai"
             "Equinox Praetor",
                 "Equinox",
                 "Praetor",
@@ -567,6 +571,17 @@ Biomes :=
             "Illuminating Prism",
                 "Iiiuminating Prism" ;
             ; TODO: Benedictus, the Avatar of Luminosity's dialogue goes here.
+        ]
+    },
+    Rain: {
+        items: [
+            "Interdimensional Travelling Merchant Rain has arrived!",
+                "Interdimensional",
+                "Travelling",
+                "Traveiiing",
+                "Travel",
+                "Travei"
+                "Rain"
         ]
     }
 }
