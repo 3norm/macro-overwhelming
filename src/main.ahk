@@ -19,7 +19,7 @@ if not FileExist("conf.ini") {
     if not FileExist(".\resources\defaultconf.ini") {
         MsgBox("defaultconf.ini not present, please reinstall the program.", "Error")
     } else {
-        FileCopy(".\balancedtotem\resources\defaultconf.ini", ".\resources\conf.ini", 0)
+        FileCopy(".\resources\defaultconf.ini", ".\resources\conf.ini", 0)
     }
 }
 
