@@ -125,7 +125,7 @@ telePort := [
 
 biomeHop := IniRead("conf.ini", "Biomes", "BiomeHop") 
 logWins := IniRead("conf.ini", "Biomes", "LogWins") 
-logLosses := IniRead("conf.ini", "Biomes", "LogWins") 
+logLosses := IniRead("conf.ini", "Biomes", "LogLosses") 
 toggle := false
 
 queue := []
