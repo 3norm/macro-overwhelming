@@ -8,9 +8,8 @@ SetMouseDelay -1
 SetControlDelay -1
 SetKeyDelay -1
 
-
-if not FileExist("conf.ini") {
-    sourceFile := FileOpen("resourcdefaultconf.ini", "r")
+if not FileExist("conf.ini") 
+{   sourceFile := FileOpen("resourcdefaultconf.ini", "r")
     if not FileExist(".\resources\defaultconf.ini") {
         MsgBox("defaultconf.ini not present, please reinstall the program.", "Error")
     } else {
@@ -18,8 +17,40 @@ if not FileExist("conf.ini") {
     }
 }
 
+global DeadTimer := 0
 CurrentLoadout := IniRead("conf.ini", "Loadouts", "CurrentLoadout")
 notifyOnWin := IniRead("conf.ini", "Biomes", "NotifyOnWin")
+gameLink := IniRead("conf.ini", "Application", "GameLink")
+devMode := IniRead("conf.ini", "Application", "DevMode")
+RETREAT := [IniRead("conf.ini", "Movement", "Retreat"), "s"]
+telePort := 
+[   IniRead("conf.ini", "Events", "TeleportEnabled"),
+    IniRead("conf.ini", "Events", "Torment"), 
+    IniRead("conf.ini", "Events", "EventItem")
+]
+WINDOW_TITLE := "Roblox"
+WINDOW_CLASS := "WINDOWSCLIENT"
+biomeHop := IniRead("conf.ini", "Biomes", "BiomeHop") 
+logWins := IniRead("conf.ini", "Biomes", "LogWins") 
+logLosses := IniRead("conf.ini", "Biomes", "LogLosses") 
+checkChat := IniRead("conf.ini", "Application", "CheckChat") 
+toggle := false
+
+ScrollLock:: { ; I'll have to make this a button you can choose, since not everyone has this button/key.
+    Global toggle
+    toggle := !toggle
+    if (Toggle) {
+        SoundPlay "*48"
+    } else {
+        SoundPlay "*16"
+    }
+}
+
+Ins:: {
+    ExitApp
+} 
+
+
 
 BiomesList := Map(
     "Night", IniRead("conf.ini", "Biomes", "Night"),
@@ -97,7 +128,7 @@ Slots := {
 
 }
 
-GameLink := IniRead("conf.ini", "Application", "GameLink")
+
 
 /*
     Color for inventory is aaffff
@@ -107,99 +138,14 @@ GameLink := IniRead("conf.ini", "Application", "GameLink")
     I want to check if the inventory is gone for more than 10 minutes, and if it is, it ends the game because it is broken.
 */
 
-devMode := IniRead("conf.ini", "Application", "DevMode"),
 
-WINDOW_TITLE := "Roblox"
-WINDOW_CLASS := "WINDOWSCLIENT"
-global DeadTimer := 0
 
-RETREAT := [IniRead("conf.ini", "Movement", "Retreat"), "s"]
-telePort := [
-    IniRead("conf.ini", "Events", "TeleportEnabled"),
-    IniRead("conf.ini", "Events", "Torment"), 
-    IniRead("conf.ini", "Events", "EventItem")
-]
 
-biomeHop := IniRead("conf.ini", "Biomes", "BiomeHop") 
-logWins := IniRead("conf.ini", "Biomes", "LogWins") 
-logLosses := IniRead("conf.ini", "Biomes", "LogLosses") 
-checkChat := IniRead("conf.ini", "Application", "CheckChat") 
-toggle := false
+
+
+
 
 queue := []
-
-ScrollLock:: { ; I'll have to make this a button you can choose, since not everyone has this button/key.
-    Global toggle
-    toggle := !toggle
-    if (Toggle) {
-        SoundPlay "*48"
-    } else {
-        SoundPlay "*16"
-    }
-}
-
-Ins:: {
-    ExitApp
-} 
-
-While (True) {
-    DeadTimer := 0
-    if (toggle) {
-        if not WinExist("ahk_class " . WINDOW_CLASS) {
-            Reconnect()
-        }
-    }
-    Loop 10 {
-        if WinExist("ahk_class " . WINDOW_CLASS) {
-            Loop 10 {
-                if WinExist("ahk_class " . WINDOW_CLASS) {
-                    if (telePort[1] and WinExist("ahk_class " . WINDOW_CLASS)) {
-                        if RETREAT[1] = 1 {
-                            SafeSend("{" . RETREAT[2] . " up}", WINDOW_CLASS)
-                        }
-                        if (telePort[2]) {
-                            ClickTorment()
-                        } else {
-                            ClickStandard()
-                        }
-                    }
-                    Loop 10 {
-                        CurrentSlot := Slots._%A_Index%
-                        if WinExist("ahk_class " . WINDOW_CLASS) {
-                            if (CurrentSlot.enabled and WinExist("ahk_class " . WINDOW_CLASS)) {
-                                QueueSummon(CurrentSlot)
-                                if BiomeHop = True {
-                                    Check_Chat
-                                }
-                                AttemptLeave
-                                if (telePort[1] and telePort[2]) {
-                                    Dead_Timer()
-                                    Boss_Timer()
-                                    Inventory_Timer()
-                                    Check_Chat_Active()
-                                    ClickTorment()
-                                } else if (telePort[1] and telePort[2] = false) {
-                                    ClickStandard()
-                                }
-                            }
-                        }          
-                    }
-                }
-            }
-            if (telePort[1] = true) {
-                counterlol := 0
-                counterlol++
-                if (counterlol = 10) {
-                    ClickSuspiciousInvite
-                    counterlol := 0
-                }
-            }
-        }
-    }
-}
-; This is really stupid, but I will do it.
-
-
 
 Check_Chat() {
     /* 
@@ -218,7 +164,7 @@ Check_Chat() {
     ChatStartHeight := 37
     chatLineAmount := 18 ; The amount of lines in chat.
     static coolDown := false
-    results := Array()yHeight
+    results := Array()
     if WinExist("ahk_class " . WINDOW_CLASS) and toggle and biomeHop and not coolDown {
         ; You have to alt tab just in case the window is frozen.
         if not coolDown {
@@ -416,7 +362,7 @@ Check_Chat_Active() {
 
 Reconnect() {
     if not WinExist("ahk_class " . WINDOW_CLASS) {
-        Run("msedge.exe " . GameLink . " --new-window")
+        Run("msedge.exe " . gameLink . " --new-window")
         WinWait("ahk_exe msedge.exe", , 60) ; Screw it. I'm closing the random microsoft edge windows. 
         WinWait("ahk_class " . WINDOW_CLASS, , 60) 
         WinClose("ahk_exe msedge.exe") ; This seems to close the last focused window of edge.
@@ -587,4 +533,66 @@ slots := 10
 ; Define the queue to store weapons
 
 ; Loop through each slot in your inventory
+
+
+While (True) {
+    DeadTimer := 0
+    if (toggle) {
+        if not WinExist("ahk_class " . WINDOW_CLASS) {
+            Reconnect()
+        }
+    }
+    Loop 10 {
+        if WinExist("ahk_class " . WINDOW_CLASS) {
+            Loop 10 {
+                if WinExist("ahk_class " . WINDOW_CLASS) {
+                    if (telePort[1] and WinExist("ahk_class " . WINDOW_CLASS)) {
+                        if RETREAT[1] = 1 {
+                            SafeSend("{" . RETREAT[2] . " up}", WINDOW_CLASS)
+                        }
+                        if (telePort[2]) {
+                            ClickTorment()
+                        } else {
+                            ClickStandard()
+                        }
+                    }
+                    Loop 10 {
+                        CurrentSlot := Slots._%A_Index%
+                        if WinExist("ahk_class " . WINDOW_CLASS) {
+                            if (CurrentSlot.enabled and WinExist("ahk_class " . WINDOW_CLASS)) {
+                                QueueSummon(CurrentSlot)
+                                if BiomeHop = True {
+                                    Check_Chat
+                                }
+                                AttemptLeave
+                                if (telePort[1] and telePort[2]) {
+                                    Dead_Timer()
+                                    Boss_Timer()
+                                    Inventory_Timer()
+                                    Check_Chat_Active()
+                                    ClickTorment()
+                                } else if (telePort[1] and telePort[2] = false) {
+                                    ClickStandard()
+                                }
+                            }
+                        }          
+                    }
+                }
+            }
+            if (telePort[1] = true) {
+                counterlol := 0
+                counterlol++
+                if (counterlol = 10) {
+                    ClickSuspiciousInvite
+                    counterlol := 0
+                }
+            }
+        }
+    }
+}
+; This is really stupid, but I will do it.
+
+
+
+
 
