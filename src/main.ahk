@@ -527,15 +527,6 @@ GetControlCenter(MyWINDOW_CLASS) {
     centerY := y + (height // 2)
 }
 
-
-; Define the number of slots in your inventory
-slots := 10
-
-; Define the queue to store weapons
-
-; Loop through each slot in your inventory
-
-
 While (True) {
     DeadTimer := 0
     if (toggle) {
