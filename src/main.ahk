@@ -3,13 +3,12 @@
 #Warn All, Off
 #Include <items>
 #include <OCR>
-#include <LevenDistance>
 SendMode "Input"  ; Recommended for new scripts due to its superior speed and reliability.
 SetMouseDelay -1
 SetControlDelay -1
 SetKeyDelay -1
 
- ; possible automatic linksender?
+ ; possible automatic link sender for Discord plebs? Might be bannable on Discord.
  ; Each line of chat is 18 pixels tall, with 0 padding between them.
  ; On my 2560 x 1440 screen, the chat gui starts about 37 pixels below the top of the screen, and the actual lines
  ; begin 3 pixels below that. Chat is 0.3 of your screen width.
@@ -250,7 +249,7 @@ Check_Chat() {
                     MsgBox mathsss . ", " . results[A_Index]
             }
         }
-        Loop 4 { ; Without this there are random spaces which clutter up the chat, for some reason, and Backspace 4 didn't work to fix it, so I'm using a loop.
+        Loop 2 { ; Without this there are random spaces which clutter up the chat, for some reason, and Backspace 4 didn't work to fix it, so I'm using a loop.
             SafeSend("{Backspace}", WINDOW_CLASS)
             Delay(1)
         } 
