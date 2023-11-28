@@ -158,6 +158,7 @@ Check_Chat() {
      *
      * I want to have this function call when checkChat is true, instead of BiomeHop, 
      * since I'll make a seperate Rain check that notifies when she spawns.
+     * and yeah, I know the code here is a bit cumbersome. Will have to increase the readability.
      *
      */
     CHAT_LINE_PIXEL_HEIGHT := 18
