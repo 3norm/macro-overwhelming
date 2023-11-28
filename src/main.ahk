@@ -3,7 +3,7 @@
 #Warn All, Off
 #Include <items>
 #include <OCR>
-SendMode "Input"  ; Recommended for new scripts due to its superior speed and reliability.
+SendMode "Input"
 SetMouseDelay -1
 SetControlDelay -1
 SetKeyDelay -1
