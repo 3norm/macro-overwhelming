@@ -1,4 +1,4 @@
-# balanced-totem
+# Macro Overwhelming.
 This is a somewhat unreliable macro for Balanced Craftwars Overhaul with a biome hopping feature, created due to an idea in the BCWO wiki, at [https://bcwo-roblox.fandom.com/wiki/Guide:Biome_farming](https://bcwo-roblox.fandom.com/wiki/Guide:Biome_farming).
 This currently only works at 1440p at 100% scaling in fullscreen if you're using the biome hopping or event functions, but if you've got a 2560 * 1440 screen, then go ahead and use it. Also, devs, pls no ban.
 
