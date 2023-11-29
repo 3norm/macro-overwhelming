@@ -544,7 +544,7 @@ While (True) {
                         }
                         if (telePort[2]) {
                             ClickTorment()
-                        } else {
+                        } else {    
                             ClickStandard()
                         }
                     }

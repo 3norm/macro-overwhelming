@@ -303,6 +303,7 @@ Biomes :=
                 "life energv",
                 "The wind",
             "Nature Essence",
+                "Nature",
             "Woodland Horns",
                 "Woodland",
                 "Woodiand",
@@ -318,9 +319,11 @@ Biomes :=
             "Windforce",
             "Gale Sprite",
             "Nature Sprite",
+                "Nature Sorite",
             "Tornado Force",
             "Nature's Garland",
             "Jade Band",
+                "Jade"
             ; "Five Leaf Clover" causes a global message.
         ]
     },
