@@ -364,13 +364,15 @@ Check_Chat_Active() {
 Reconnect() {
     if not WinExist("ahk_class " . WINDOW_CLASS) {
         Run("msedge.exe " . gameLink . " --new-window")
-        WinWait("ahk_exe msedge.exe", , 60) ; Screw it. I'm closing the random microsoft edge windows. 
-        WinWait("ahk_class " . WINDOW_CLASS, , 60) 
-        WinClose("ahk_exe msedge.exe") ; This seems to close the last focused window of edge.
-        if telePort[1] = true {
-            Sleep 20000
-            ClickSuspiciousInvite
-        }
+        if WinWait("ahk_exe msedge.exe", , 60) {
+            if WinWait("ahk_class " . WINDOW_CLASS, , 60) or WinWait("ahk_exe Bloxstrap.exe") {
+                WinClose("ahk_exe msedge.exe") ; This seems to close the last focused window of edge, luckily.
+                if telePort[1] = true {
+                    Sleep 20000
+                    ClickSuspiciousInvite
+                }
+            } ; Screw it. I'm closing the random microsoft edge windows.  
+        } 
     }
 }
 
