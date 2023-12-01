@@ -189,7 +189,7 @@ Check_Chat() {
                     MsgBox yHeight . ", " . results[A_Index]
             }
         }
-        Loop 2 { ; Without this there are random spaces which clutter up the chat, for some reason, and Backspace 4 didn't work to fix it, so I'm using a loop.
+        Loop 4 { ; Without this there are random spaces which clutter up the chat, for some reason, and Backspace 4 didn't work to fix it, so I'm using a loop.
             SafeSend("{Backspace}", WINDOW_CLASS)
             Delay(1)
         } 
