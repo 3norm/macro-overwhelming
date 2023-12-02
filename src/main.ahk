@@ -210,7 +210,7 @@ Check_Chat() {
                             }
                             if logWins = True {
                                 TimeString := FormatTime()
-                                FileAppend("`n" . TimeString . ", got `n", "mo_wins.log")
+                                FileAppend("`n" . TimeString . ", got " . name . "`n", "mo_wins.log")
                                 Loop results.Length {
                                     FileAppend("Line " . Integer(A_Index) . ", " . results[A_Index] . "`n", "mo_wins.log")
                                 }
@@ -222,7 +222,7 @@ Check_Chat() {
                             ; msgBox phrase . ", " . name . ", " . boole, ", " . asdasdasd
                             if logLosses {
                                 TimeString := FormatTime()
-                                FileAppend("`n" . TimeString . ", got `n", "mo_losses.log")
+                                FileAppend("`n" . TimeString . ", got " . name . "`n", "mo_losses.log")
                                 Loop results.Length {
                                     FileAppend("Line " . Integer(A_Index) . ", " . results[A_Index] . "`n", "mo_losses.log")
                                 }
