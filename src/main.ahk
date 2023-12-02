@@ -366,7 +366,7 @@ Reconnect() {
         ; I recall being unable to get the PID of the browser window.
         Run("msedge.exe " . gameLink . " --new-window")
         if WinWait("ahk_exe msedge.exe", , 60) {
-            if WinWait("ahk_class " . WINDOW_CLASS, , 60) or WinWait("ahk_exe Bloxstrap.exe", , 60) {
+            if WinWait("ahk_class " . WINDOW_CLASS, , 60) {
                 try WinClose("ahk_exe msedge.exe") ; This seems to close the last focused window of edge, luckily.
                 if telePort[1] = true {
                     Sleep 20000
