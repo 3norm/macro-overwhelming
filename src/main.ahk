@@ -53,6 +53,7 @@ Ins:: {
 
 
 BiomesList := Map(
+    "Grasslands", 0,
     "Night", IniRead("conf.ini", "Biomes", "Night"),
     "Blizzard", IniRead("conf.ini", "Biomes", "Blizzard"),
     "FlareBiome", IniRead("conf.ini", "Biomes", "FlareBiome"),
@@ -374,7 +375,7 @@ Reconnect() {
                 }
                 else 
                 {
-                    try WinClose("ahk_exe msedge.exe")
+                    try WinClose("ahk_exe msedge.exe") ; Why is this in an else statement? No clue.
                 }
             } ; Screw it. I'm closing the random microsoft edge windows.  
         } 
@@ -545,6 +546,7 @@ While (True) {
         if WinExist("ahk_class " . WINDOW_CLASS) {
             Loop 10 {
                 if WinExist("ahk_class " . WINDOW_CLASS) {
+                    /*
                     if (telePort[1] and WinExist("ahk_class " . WINDOW_CLASS)) {
                         if RETREAT[1] = 1 {
                             SafeSend("{" . RETREAT[2] . " up}", WINDOW_CLASS)
@@ -555,6 +557,7 @@ While (True) {
                             ClickStandard()
                         }
                     }
+                    */
                     Loop 10 {
                         CurrentSlot := Slots._%A_Index%
                         if WinExist("ahk_class " . WINDOW_CLASS) {
@@ -578,6 +581,7 @@ While (True) {
                     }
                 }
             }
+            /*
             if (telePort[1] = true) {
                 counterlol := 0
                 counterlol++
@@ -586,6 +590,7 @@ While (True) {
                     counterlol := 0
                 }
             }
+            */
         }
     }
 }

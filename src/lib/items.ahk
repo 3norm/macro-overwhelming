@@ -192,9 +192,32 @@ EquinoxBallista(key, clickPosArray) { ; What the hell am I doing?
  */
 Biomes := 
 {
-    GrasslandsBiome: {
+    Grasslands: { ; This should not be merged.
         tips: "The world has returned to normal.",
-        tips2: "The world has returned to normal?"
+        tips2: "The world has returned to normal?",
+        items: [
+            "The Ripper",
+                "Shadow Fragment",
+                "Ripper Claws",
+                "Ripper",
+            "The Paladin",
+                "Your actions created chaos and destruction!",
+                "chaos and destruction"
+                "You are under arrest! Do not resist!",
+                "under arrest",
+                "Do not resist",
+                "I will not fall just yet.",
+                "I will not fall just yet",
+                "The light will stop you...",
+                "The light will stop you",
+            "The Controller",
+                "Controller",
+                "Controlier",
+                "Controiler",
+                "Synodic Alloy",
+                "Synodic Energy Core",
+                "Synodic Transfigurator"
+        ]
     },
     Night: {
         tips: "The moon is rising!",
