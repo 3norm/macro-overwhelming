@@ -372,13 +372,12 @@ Reconnect() {
                 if telePort[1] = true {
                     Sleep 40000
                     ClickSuspiciousInvite
-                }
-                Loop 4 {
-                    try WinClose("ahk_exe msedge.exe") ; Trying the old reliable 4 loop to fix the bug where a metric top of Microsoft Edge windows open.
-                }
-                    
+                }    
             } ; Screw it. I'm closing the random microsoft edge windows.  
-        } 
+        } else {
+                try WinClose("ahk_exe msedge.exe")
+            }
+        }
     }
 }
 
