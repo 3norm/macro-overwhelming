@@ -370,13 +370,13 @@ Reconnect() {
             if WinWait("ahk_class " . WINDOW_CLASS, , 60) {
                 try WinClose("ahk_exe msedge.exe") ; This seems to close the last focused window of edge, luckily.
                 if telePort[1] = true {
-                    Sleep 20000
+                    Sleep 40000
                     ClickSuspiciousInvite
                 }
-                else 
-                {
-                    try WinClose("ahk_exe msedge.exe") ; Why is this in an else statement? No clue.
+                Loop 4 {
+                    try WinClose("ahk_exe msedge.exe") ; Trying the old reliable 4 loop to fix the bug where a metric top of Microsoft Edge windows open.
                 }
+                    
             } ; Screw it. I'm closing the random microsoft edge windows.  
         } 
     }
@@ -568,10 +568,10 @@ While (True) {
                                 }
                                 AttemptLeave
                                 if (telePort[1] and telePort[2]) {
-                                    Dead_Timer()
-                                    Boss_Timer()
-                                    Inventory_Timer()
-                                    Check_Chat_Active()
+                                    ; Dead_Timer()
+                                    ; Boss_Timer()
+                                    ; Inventory_Timer()
+                                    ; Check_Chat_Active()
                                     ClickTorment()
                                 } else if (telePort[1] and telePort[2] = false) {
                                     ClickStandard()
