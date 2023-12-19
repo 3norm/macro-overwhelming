@@ -376,7 +376,6 @@ Reconnect() {
             } ; Screw it. I'm closing the random microsoft edge windows.  
         } else {
                 try WinClose("ahk_exe msedge.exe")
-            }
         }
     }
 }
