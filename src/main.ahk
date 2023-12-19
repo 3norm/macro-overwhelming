@@ -535,7 +535,7 @@ GetControlCenter(MyWINDOW_CLASS) {
 }
 
 While (True) {
-    DeadTimer := 0
+    ; DeadTimer := 0
     if (toggle) {
         if not WinExist("ahk_class " . WINDOW_CLASS) {
             Reconnect()
