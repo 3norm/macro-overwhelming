@@ -540,56 +540,56 @@ While (True) {
         if not WinExist("ahk_class " . WINDOW_CLASS) {
             Reconnect()
         }
-    }
-    Loop 10 {
-        if WinExist("ahk_class " . WINDOW_CLASS) {
-            Loop 10 {
-                if WinExist("ahk_class " . WINDOW_CLASS) {
-                    /*
-                    if (telePort[1] and WinExist("ahk_class " . WINDOW_CLASS)) {
-                        if RETREAT[1] = 1 {
-                            SafeSend("{" . RETREAT[2] . " up}", WINDOW_CLASS)
-                        }
-                        if (telePort[2]) {
-                            ClickTorment()
-                        } else {    
-                            ClickStandard()
-                        }
-                    }
-                    */
-                    Loop 10 {
-                        CurrentSlot := Slots._%A_Index%
-                        if WinExist("ahk_class " . WINDOW_CLASS) {
-                            if (CurrentSlot.enabled and WinExist("ahk_class " . WINDOW_CLASS)) {
-                                QueueSummon(CurrentSlot)
-                                if BiomeHop = True {
-                                    Check_Chat
-                                }
-                                AttemptLeave
-                                if (telePort[1] and telePort[2]) {
-                                    ; Dead_Timer()
-                                    ; Boss_Timer()
-                                    ; Inventory_Timer()
-                                    ; Check_Chat_Active()
-                                    ClickTorment()
-                                } else if (telePort[1] and telePort[2] = false) {
-                                    ClickStandard()
-                                }
+        Loop 10 {
+            if WinExist("ahk_class " . WINDOW_CLASS) {
+                Loop 10 {
+                    if WinExist("ahk_class " . WINDOW_CLASS) {
+                        /*
+                        if (telePort[1] and WinExist("ahk_class " . WINDOW_CLASS)) {
+                            if RETREAT[1] = 1 {
+                                SafeSend("{" . RETREAT[2] . " up}", WINDOW_CLASS)
                             }
-                        }          
+                            if (telePort[2]) {
+                                ClickTorment()
+                            } else {    
+                                ClickStandard()
+                            }
+                        }
+                        */
+                        Loop 10 {
+                            CurrentSlot := Slots._%A_Index%
+                            if WinExist("ahk_class " . WINDOW_CLASS) {
+                                if (CurrentSlot.enabled and WinExist("ahk_class " . WINDOW_CLASS)) {
+                                    QueueSummon(CurrentSlot)
+                                    if BiomeHop = True {
+                                        Check_Chat
+                                    }
+                                    AttemptLeave
+                                    if (telePort[1] and telePort[2]) {
+                                        ; Dead_Timer()
+                                        ; Boss_Timer()
+                                        ; Inventory_Timer()
+                                        ; Check_Chat_Active()
+                                        ClickTorment()
+                                    } else if (telePort[1] and telePort[2] = false) {
+                                        ClickStandard()
+                                    }
+                                }
+                            }          
+                        }
                     }
                 }
-            }
-            /*
-            if (telePort[1] = true) {
-                counterlol := 0
-                counterlol++
-                if (counterlol = 10) {
-                    ClickSuspiciousInvite
+                /*
+                if (telePort[1] = true) {
                     counterlol := 0
+                    counterlol++
+                    if (counterlol = 10) {
+                        ClickSuspiciousInvite
+                        counterlol := 0
+                    }
                 }
+                */
             }
-            */
         }
     }
 }
