@@ -53,7 +53,7 @@ Ins:: {
 
 
 BiomesList := Map(
-    "Grasslands", 0,
+    ; "Grasslands", 0,
     "Night", IniRead("conf.ini", "Biomes", "Night"),
     "Blizzard", IniRead("conf.ini", "Biomes", "Blizzard"),
     "FlareBiome", IniRead("conf.ini", "Biomes", "FlareBiome"),
