@@ -53,7 +53,7 @@ Ins:: {
 
 
 BiomesList := Map(
-    ; "Grasslands", 0,
+    ; "Grasslands", 0, ; This is commented out because otherwise Grasslands bosses will either trigger a win or a loss.
     "Night", IniRead("conf.ini", "Biomes", "Night"),
     "Blizzard", IniRead("conf.ini", "Biomes", "Blizzard"),
     "FlareBiome", IniRead("conf.ini", "Biomes", "FlareBiome"),
