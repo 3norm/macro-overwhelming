@@ -1,4 +1,4 @@
-#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.0.9
 
 
 Items := 
@@ -189,14 +189,16 @@ EquinoxBallista(key, clickPosArray) { ; What the hell am I doing?
  * I could probably do something with Levenstein Distance or Dice Coefficient but I'm uncertain about
  * the effectiveness and false positives, I might make it an option in the future, once I have 100
  * different variants of Popsicle in the code.
+ * Also, add a filter for lines containing the word "obtained", just in case a global message leaks through when you have it disabled.
  */
 Biomes := 
 {
-    Grasslands: { ; This should not be merged.
+    Grasslands: {
         tips: "The world has returned to normal.",
         tips2: "The world has returned to normal?",
         items: [
             "The Ripper",
+                "Thp Rinnpr",
                 "Shadow Fragment",
                 "Ripper Claws",
                 "Ripper",
