@@ -150,7 +150,7 @@ queue := []
 
 Check_Chat() {
     /* 
-     * Possible automatic link sender for Discord plebs? Might be bannable on Discord.
+     * Possible automatic link sender for Discord users? Might be bannable on Discord.
      *
      * Each line of chat is 18 pixels tall, with 0 padding between them, which seems unfortunate, because the MinImageDimension
      * for the OCR appears to be 40 pixels, however, it works fine to read lines in my experience.
@@ -202,8 +202,8 @@ Check_Chat() {
                         asdasdasd := results[A_Index]
                         msgBox(phrase . ", " . name . ", " . boole ", " . asdasdasd,)
                     }
-                    if not Trim(resulters) = "" {
-                        if (boole and InStr( StrReplace(StrLower(resulters), A_Space), StrReplace(StrLower(phrase), A_Space)) and coolDown = false) {
+                    if not Trim(resulters) = "" { ; TODO: Improve readability.
+                        if (boole and InStr( StrReplace(StrLower(resulters), A_Space), StrReplace(StrLower(phrase), A_Space)) and coolDown = false) { ; Maybe add an option for Levenshtein distance?
                             coolDown := true
                             SetTimer CooldownFalse, 60000
                             CooldownFalse() {
@@ -219,6 +219,7 @@ Check_Chat() {
                             if notifyOnWin = True { ; I'll move this to be outside of the Win thing later, since you might want to be notified for Rain but not for Heaven, and you might not want to Biome hop, but still want Rain.
                                 SoundPlay("*48")
                             }
+                            ; TODO: Add an option to say "/clear" on a win.
                         } else if (!boole and InStr(StrReplace(StrLower(resulters), A_Space), StrReplace(StrLower(phrase), A_Space)) and coolDown = false and WinExist("ahk_class " . WINDOW_CLASS)) {
                             ; msgBox phrase . ", " . name . ", " . boole, ", " . asdasdasd
                             if logLosses {
