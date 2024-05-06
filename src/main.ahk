@@ -416,7 +416,7 @@ ClickSuspiciousInvite() {
 }
 
 
-AttemptLeave() {
+AttemptLeave() { ; TODO: Make this click on the button according to aspect ratio and resolution.
     if WinExist("ahk_class " . WINDOW_CLASS) and toggle {
         SafeClick(1161, 783, WINDOW_CLASS)
     }
