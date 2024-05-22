@@ -168,7 +168,7 @@ Check_Chat() {
     static coolDown := false
     results := Array()
     if WinExist("ahk_class " . WINDOW_CLASS) and toggle and biomeHop and not coolDown {
-        ; You have to alt tab just in case the window is frozen.
+        ; You have to alt tab just in case the window is frozen; this usually happened when I turned my monitor off while using the program.
         if not coolDown {
             Send("{Alt down}")
             Send("{Tab}")
