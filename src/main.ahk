@@ -198,10 +198,12 @@ Check_Chat() {
         for name, boole in BiomesList {
             for _, phrase in Biomes.%name%.items {
                 for _, resulters in results {
+                    /*
                     if devMode {
                         asdasdasd := results[A_Index]
                         msgBox(phrase . ", " . name . ", " . boole ", " . asdasdasd,)
                     }
+                    */
                     if not Trim(resulters) = "" { ; TODO: Improve readability.
                         if (boole and InStr( StrReplace(StrLower(resulters), A_Space), StrReplace(StrLower(phrase), A_Space)) and coolDown = false) { ; Maybe add an option for Levenshtein distance?
                             coolDown := true
